@@ -6,7 +6,7 @@ const rfpSchema = new mongoose.Schema(
     title: { type: String, require: true, minLength: 8, maxLength: 255 },
     status: {
       type: String,
-      enum: ["DRAFT", "PUBLISHED", "CLOSED", "DELETED"],
+      enum: ["DRAFT", "SUBMITTED", "PUBLISHED", "CLOSED", "DELETED"],
       require: true,
       default: "DRAFT",
     },

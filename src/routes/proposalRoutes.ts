@@ -12,12 +12,12 @@ import {
 const router = Router();
 
 router.post("/", createProposal);
-router.get("/rfp/:rfpId", listProposalsByRfp);
+router.get("/rfps/:rfpId", listProposalsByRfp);
 
 router.get("/:id", getProposal);
 router.patch("/:id", updateProposal);
-router.delete("/:id", deleteProposal);
-
 router.post("/:id/accept", acceptProposal);
+
+router.delete("/:id", deleteProposal);
 
 export default router;

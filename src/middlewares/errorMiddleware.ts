@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export const errorHandler = async (
   err: any,
-  _: Request,
-  res: Response
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
   console.log("Error", err);
   // TODO: Store logging

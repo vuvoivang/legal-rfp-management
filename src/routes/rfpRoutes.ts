@@ -4,10 +4,10 @@ import { createRfp, deleteRfp, getRfps, updateRfp } from '../controllers/rfpCont
 
 const router = express.Router();
 
-router.get('/rfps', getRfps);
-router.post('/rfps', createRfp);
-router.put('/rfps/:id', updateRfp);
-router.delete('/rfps/:id', deleteRfp);
+router.get('/', getRfps);
+router.post('/', createRfp);
+router.put('/:id', updateRfp);
+router.delete('/:id', deleteRfp);
 
 
 export default router;
