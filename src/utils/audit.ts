@@ -9,7 +9,7 @@ export const createAuditLog = async ({
 }: {
   entity: "RFP" | "PROPOSAL";
   entityId: string;
-  action: "CREATE" | "UPDATE" | "DELETE";
+  action: "CREATE" | "UPDATE" | "DELETE" | "ACCEPT";
   performedBy: string;
   changes?: any;
 }) => {

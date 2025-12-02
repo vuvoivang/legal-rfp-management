@@ -17,6 +17,7 @@ export const createProposal = async (req: Request, res: Response) => {
       ...body,
       createdBy: req.user._id,
       organisationId: req.user.organisationId,
+      status: "SUBMITTED"
     });
 
     await createAuditLog({
@@ -112,18 +113,17 @@ export const acceptProposal = async (req: Request, res: Response) => {
     const userId = req.user!.id;
 
     const proposal = await Proposal.findById(id);
-    if (!proposal) throw new Error("Proposal not found");
+    if (!proposal) return failure(res, "Proposal not found", 404);
 
     proposal.status = "ACCEPTED";
     await proposal.save();
 
-    // create audit log
-    await AuditLog.create({
-      user: userId,
-      targetType: "Proposal",
-      targetId: id,
+    await createAuditLog({
+      entity: "PROPOSAL",
+      entityId: proposal.id,
       action: "ACCEPT",
-      message: "Proposal accepted by user",
+      performedBy: userId,
+      changes: "Proposal accepted by user",
     });
 
     return res.json({
@@ -131,7 +131,8 @@ export const acceptProposal = async (req: Request, res: Response) => {
       message: "Proposal accepted successfully",
       data: proposal,
     });
-  } catch {
-    return failure(res, "Failed to delete proposal", 500);
+  } catch (err) {
+    console.log('Error accept proposal', err);
+    return failure(res, "Failed to accept proposal", 500);
   }
 };

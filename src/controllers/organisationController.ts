@@ -15,8 +15,14 @@ import { IUser } from "../types";
 export const register = async (req: Request, res: Response) => {
   try {
     const query = registerBodyValidationSchema.parse(req.body);
-    const { email, password, confirmedPassword, name, organisationName, organisationRole } =
-      query;
+    const {
+      email,
+      password,
+      confirmedPassword,
+      name,
+      organisationName,
+      organisationRole,
+    } = query;
     if (password !== confirmedPassword)
       return failure(res, "Password and confirm password does not match", 400);
     const existingOrg = await Organisation.findOne({ name: organisationName });
@@ -33,7 +39,7 @@ export const register = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(
       password,
-      process.env.SALT_ROUNDS || ""
+      process.env.SALT_ROUNDS || "5"
     );
 
     // Create first admin user

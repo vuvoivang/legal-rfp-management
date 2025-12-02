@@ -7,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.get("/rfps", listComments);
-router.post("/rfps", createComment);
-router.delete("/rfps/:id", deleteComment);
+router.get("/", listComments);
+router.post("/", createComment);
+router.delete("/:id", deleteComment);
 
 export default router;
